@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en" inputmode="decimal">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PT-INR interpretation</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <h2>PT / INR</h2>
+
+<div class="form" autocomplete="off">
+    <div>
+        <label for="pt" data-info="<b>PT (Prothrombin Time):</b><br> A test that measures how long it takes your blood to clot, primarily evaluating the extrinsic pathway of coagulation. <br><br> Normal range: 11-13.5 seconds (can vary slightly by lab).">PT:</label>
+        <input type="number" id="pt" step="any" inputmode="decimal">
+    </div>
+    <div>
+        <label for="inr" data-info="<b>INR (International Normalized Ratio):</b><br> A standardized measurement derived from PT results that allows for consistent monitoring of warfarin and other vitamin K antagonist therapies. <br><br> Normal range: 0.8-1.2 for those not on anticoagulant therapy. <br> Target range: 2.0-3.0 for most indications of warfarin therapy (can be 2.5-3.5 for mechanical heart valves)">INR:</label>
+        <input type="number" id="inr" step="any" inputmode="decimal">
+    </div>    
+    <div>
+        <label for="aptt" data-info="<b>aPTT (activated Partial Thromboplastin Time):</b><br> A test that evaluates the intrinsic and common pathways of coagulation, commonly used to monitor heparin therapy.<br><br> Normal range: 25-35 seconds (can vary by lab method).">aPTT:</label>
+        <input type="number" id="aptt" step="any" inputmode="decimal">
+    </div>
+    <div>
+        <label for="ddimer" data-info="<b>D-dimer:</b><br> A fibrin degradation product that indicates recent or ongoing blood clot formation and breakdown, used to rule out conditions like deep vein thrombosis or pulmonary embolism.<br><br> Normal range: <500 ng/mL or <0.5 μg/mL FEU (Fibrinogen Equivalent Units) <br> (Some labs may use different units or cutoffs).">D-dimer:</label>
+        <input type="number" id="ddimer" step="any" inputmode="decimal">
+    </div>
+    <div>
+        <label for="fibrinogen" data-info="<b>Fibrinogen:</b><br> A plasma protein produced by the liver that is converted to fibrin during the clotting process, with levels that may increase during inflammation or decrease in certain coagulation disorders.<br><br> Normal range: 200-400 mg/dL (2-4 g/L).">Fibrinogen:</label>
+        <input type="number" id="fibrinogen" step="any" inputmode="decimal">
+    </div>
+    <div><button onclick="analyze()">Analyze</button></div>
+</div>
+
+<div id="result">
+    <strong>Interpretation</strong><br>
+    <span id="output"></span>
+</div>
+
+<script src="script.js"></script>
+<script>
+  // Select all labels
+  const labels = document.querySelectorAll('.form label');
+
+  labels.forEach(label => {
+    label.addEventListener('mouseenter', function () {
+      const infoText = label.getAttribute('data-info');
+      output.innerHTML = infoText;
+      output.style.opacity = '1'; // fade in
+    });
+
+    label.addEventListener('mouseleave', function () {
+      output.style.opacity = '0'; // fade out
+    setTimeout(() => {
+      output.innerText = '';
+    }, 300); // wait until fade out completes before clearing text
+  });
+});
+
+// ✅ Set default message after everything is ready
+output.innerHTML = "Hover over a label to see the explanation. <br> Type your lab values into the boxes to analyze the results.";
+output.style.opacity = '1'; // optional: show it immediately
+</script>
+
+    
+</body>
+</html>
